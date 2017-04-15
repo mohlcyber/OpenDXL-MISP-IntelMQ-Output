@@ -5,6 +5,7 @@ IntelMQ is used to collect data from the Malware Intelligence Sharing Platform (
 to e.g. 
 
 * run multiple McAfee Active Response searches across multiple DXL fabrics. ([Link]())
+* update McAfee TIE Server (Malicious Hashes) ([Link]())
 * update McAfee Web Gateways (IP subscribed Lists) ([Link]())
 * update Forcepoint Firewalls ([Link]())
 * update Check Point Firewalls ([Link]())
@@ -40,11 +41,9 @@ Parsers, Experts and Outputs.
 
 For this particular use case we will collect data from the Malware Intelligence Sharing Platform (MISP) based on specific tags. 
 We will parse the information and use OpenDXL as an output to share information across multiple DXL fabrics and platforms.
-OpenDXL as an output is not natively configured. To add OpenDXL we first need to create a new BOT.
+OpenDXL as an output is not natively configured. To add OpenDXL we first need to create a new BOT in /opt/intelmq/etc/BOTS.
 
-> vim.tiny /opt/intelmq/etc/BOTS
-
-Add under Output the new DXL item:
+Add under Output the new DXL item e.g:
 
 ``"McAfee DXL": {
  "description": "This output will generate a DXL message.",
@@ -75,15 +74,23 @@ Next we need to modify the entry point file.
 
 > vim.tiny /usr/local/lib/python3.4/dist-packages/intelmq-1.0.0.dev6.egg-info/entry_points.txt
 
-Add new BOTS.
+Add the new BOTS.
 
 `intelmq.bots.outputs.dxl.outputc1 = intelmq.bots.outputs.dxl.outputc1:BOT.run`
-
-`intelmq.bots.outputs.dxl.outputc2 = intelmq.bots.outputs.dxl.outputc2:BOT.run`
 
 We can start using a simple DXL script to publish collected MISP information on a specific DXL topic. 
 Best starting point is the event_example.py file in the OpenDXL sample folder.
 
-> cp /dxlclient-python-sdk-3.0.1.203/sample/basic/event_example.py /usr/local/lib/python3.4/distpackages/intelmq/bots/outputs/dxl/event_example.py
+> cp /dxlclient-python-sdk-3.0.1.203/sample/basic/event_example.py /usr/local/lib/python3.4/distpackages/intelmq/bots/outputs/dxl/example_test.py
 
 Finally we need to create a BOT to execute the OpenDXL python script.
+
+> vim.tiny /usr/local/lib/python3.4/distpackages/intelmq/bots/outputs/dxl/output1.py
+
+The output1.py script includes a specfic row to execute the OpenDXL script.
+
+'subprocess.call(['/usr/bin/python','/usr/local/lib/python3.4/dist-packages/intelmq/bots/outputs/dxl/example_test.py', event_data])'
+
+The subprocess.call is necessary to execute the OpenDXL script with Python 2.7 (IntelMQ uses Python 3.x). 
+Please make sure to use the full path name in the dxlclient.config file.
+
