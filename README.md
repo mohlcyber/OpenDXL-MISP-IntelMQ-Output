@@ -41,7 +41,10 @@ Parsers, Experts and Outputs.
 
 For this particular use case we will collect data from the Malware Intelligence Sharing Platform (MISP) based on specific tags. 
 We will parse the information and use OpenDXL as an output to share information across multiple DXL fabrics and platforms.
-OpenDXL as an output is not natively configured. To add OpenDXL we first need to create a new BOT in /opt/intelmq/etc/BOTS.
+OpenDXL as an output is not natively configured. 
+
+### IntelMQ
+To add OpenDXL we first need to create a new BOT in /opt/intelmq/etc/BOTS.
 
 Add under Output the new DXL item e.g:
 
@@ -79,13 +82,12 @@ Add the new BOTS.
 `intelmq.bots.outputs.dxl.outputc1 = intelmq.bots.outputs.dxl.outputc1:BOT.run`
 
 We can start using a simple DXL script to publish collected MISP information on a specific DXL topic. 
-Best starting point is the event_example.py file in the OpenDXL sample folder.
 
-> cp /dxlclient-python-sdk-3.0.1.203/sample/basic/event_example.py /usr/local/lib/python3.4/distpackages/intelmq/bots/outputs/dxl/example_test.py
+> /usr/local/lib/python3.4/distpackages/intelmq/bots/outputs/dxl/example_test.py
 
 Finally we need to create a BOT to execute the OpenDXL python script.
 
-> vim.tiny /usr/local/lib/python3.4/distpackages/intelmq/bots/outputs/dxl/output1.py
+> /usr/local/lib/python3.4/distpackages/intelmq/bots/outputs/dxl/output1.py
 
 The output1.py script includes a specfic row to execute the OpenDXL script.
 
@@ -94,3 +96,21 @@ The output1.py script includes a specfic row to execute the OpenDXL script.
 The subprocess.call is necessary to execute the OpenDXL script with Python 2.7 (IntelMQ uses Python 3.x). 
 Please make sure to use the full path name in the dxlclient.config file.
 
+### IntelMQ Manager
+
+1. Add a new MISP collector. Change the following information:
+* MISP_Key (MISP automation)
+* MISP_tag_proccessed (new tag that should be assigned to the MISP event)
+* MISP_tag_to_process (tagged event that should be processed)
+* MISP_url
+* MISP_verify (optional trusted/untrusted SSL certificates check)
+
+![32_misp_intelmq](https://cloud.githubusercontent.com/assets/25227268/25067469/09c9c9c2-2245-11e7-8a38-f0279eb4f088.PNG)
+
+2. Add the MISP parser to the configuration page.
+
+3. Add the McAfee DXL output and change the module name to the module you want to execute.
+
+4. Link the MISP collector with the parser and the output and safe the configuration.
+
+IntelMQ collect the tagged event and publish this information via DXL. It is also possible to filter the data first before it gets send via DXL (e.g. filter out Hashes, IPs and Domains) to run multiple McAfee Active Response searches.
