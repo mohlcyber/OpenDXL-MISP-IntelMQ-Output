@@ -89,7 +89,7 @@ Finally we need to create a BOT to execute the OpenDXL python script.
 
 The output1.py script includes a specfic row to execute the OpenDXL script.
 
-'subprocess.call(['/usr/bin/python','/usr/local/lib/python3.4/dist-packages/intelmq/bots/outputs/dxl/example_test.py', event_data])'
+`subprocess.call(['/usr/bin/python','/usr/local/lib/python3.4/dist-packages/intelmq/bots/outputs/dxl/example_test.py', event_data])`
 
 The subprocess.call is necessary to execute the OpenDXL script with Python 2.7 (IntelMQ uses Python 3.x). 
 Please make sure to use the full path name in the dxlclient.config file.
