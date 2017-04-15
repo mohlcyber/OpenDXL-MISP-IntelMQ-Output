@@ -62,24 +62,13 @@ Add under Output the new DXL item e.g:
 Next we need to generate a bot output file in the /usr/local/bin library. This output file is for one OpenDXL output.
 If more outputs are needed just duplicate the file and change the intelmq output target.
 
-``#!/usr/bin/python3.4
-#EASY-INSTALL-ENTRY-SCRIPT:
-'intelmq==1.0.0.dev6','console_scripts','intelmq.bots.outputs.dxl.outputc1'
-__requires__ = 'intelmq==1.0.0.dev6'
-import sys
-from pkg_resources import load_entry_point
-if __name__ == '__main__':
- sys.exit(
- load_entry_point('intelmq==1.0.0.dev6', 'console_scripts', 'intelmq.bots.outputs.dxl.outputc1')()
- )``
+Next we need to add / modify the entry point file.
 
-Next we need to modify the entry point file.
-
-> vim.tiny /usr/local/lib/python3.4/dist-packages/intelmq-1.0.0.dev6.egg-info/entry_points.txt
+> /usr/local/lib/python3.4/dist-packages/intelmq-1.0.0.dev6.egg-info/entry_points.txt
 
 Add the new BOTS.
 
-`intelmq.bots.outputs.dxl.outputc1 = intelmq.bots.outputs.dxl.outputc1:BOT.run`
+e.g. `intelmq.bots.outputs.dxl.outputc1 = intelmq.bots.outputs.dxl.outputc1:BOT.run`
 
 We can start using a simple DXL script to publish collected MISP information on a specific DXL topic. 
 
@@ -89,7 +78,7 @@ Finally we need to create a BOT to execute the OpenDXL python script.
 
 > /usr/local/lib/python3.4/distpackages/intelmq/bots/outputs/dxl/output1.py
 
-The output1.py script includes a specfic row to execute the OpenDXL script.
+The output1.py script includes a specfic part to execute the OpenDXL script.
 
 `subprocess.call(['/usr/bin/python','/usr/local/lib/python3.4/dist-packages/intelmq/bots/outputs/dxl/example_test.py', event_data])`
 
@@ -97,7 +86,6 @@ The subprocess.call is necessary to execute the OpenDXL script with Python 2.7 (
 Please make sure to use the full path name in the dxlclient.config file.
 
 ### IntelMQ Manager
-
 1. Add a new MISP collector. Change the following information:
 * MISP_Key (MISP automation)
 * MISP_tag_proccessed (new tag that should be assigned to the MISP event)
@@ -113,4 +101,10 @@ Please make sure to use the full path name in the dxlclient.config file.
 
 4. Link the MISP collector with the parser and the output and safe the configuration.
 
-IntelMQ collect the tagged event and publish this information via DXL. It is also possible to filter the data first before it gets send via DXL (e.g. filter out Hashes, IPs and Domains) to run multiple McAfee Active Response searches.
+IntelMQ collect the tagged event and publish this information via DXL. It is also possible to filter the data first before it gets send via DXL (e.g. filter out Hashes, IPs and Domains).
+
+## Summary
+MISP contains global, community and locally produced intelligence that can be used with IntelMQ and OpenDXL for automated threat hunting and threat response.
+
+![33_misp_intelmq](https://cloud.githubusercontent.com/assets/25227268/25067556/eb551ed0-2247-11e7-830e-4422655f561c.PNG)
+
