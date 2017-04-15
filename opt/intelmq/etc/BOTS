@@ -1,0 +1,700 @@
+{
+    "Collector": {
+        "Fileinput": {
+            "description": "Fileinput collector fetches data from a file.",
+            "module": "intelmq.bots.collectors.file.collector_file",
+            "parameters": {
+                "delete_file": false,
+                "feed": "FileCollector",
+                "provider": "",
+                "path": "/tmp/",
+                "postfix": ".csv",
+                "rate_limit": 300
+            }
+        },
+        "Generic Mail Attachment Fetcher": {
+            "description": "Monitor IMAP mailboxes and retrieve mail attachments",
+            "module": "intelmq.bots.collectors.mail.collector_mail_attach",
+            "parameters": {
+                "attach_regex": "csv.zip",
+                "attach_unzip": true,
+                "feed": "",
+                "provider": "",
+                "folder": "INBOX",
+                "mail_host": "<host>",
+                "mail_password": "<password>",
+                "mail_ssl": true,
+                "mail_user": "<user>",
+                "rate_limit": 60,
+                "subject_regex": "<subject>"
+            }
+        },
+        "Generic Mail URL Fetcher": {
+            "description": "Monitor IMAP mailboxes and fetch files from URLs contained in mail bodies",
+            "module": "intelmq.bots.collectors.mail.collector_mail_url",
+            "parameters": {
+                "feed": "",
+                "provider": "",
+                "folder": "INBOX",
+                "http_password": null,
+                "http_username": null,
+                "mail_host": "<host>",
+                "mail_password": "<password>",
+                "mail_ssl": true,
+                "mail_user": "<user>",
+                "rate_limit": 60,
+                "subject_regex": "<subject>",
+                "url_regex": "http://",
+                "ssl_client_certificate": null
+            }
+        },
+        "Generic URL Fetcher": {
+            "description": "Generic URL Fetcher is the bot responsible to get the report from an URL.",
+            "module": "intelmq.bots.collectors.http.collector_http",
+            "parameters": {
+                "feed": "",
+                "provider": "",
+                "http_url": "<insert url of feed>",
+                "http_username": null,
+                "http_password": null,
+                "ssl_client_certificate": null,
+                "rate_limit": 3600
+            }
+        },
+        "Generic URL Stream Fetcher": {
+            "description": "Opens a streaming connection to the URL and sends the received lines.",
+            "module": "intelmq.bots.collectors.http.collector_http_stream",
+            "parameters": {
+                "feed": "",
+                "provider": "",
+                "http_url": "<insert url of feed>",
+                "http_username": null,
+                "http_password": null,
+                "ssl_client_certificate": null,
+                "strip_lines": true,
+                "rate_limit": 3600
+            }
+        },
+        "MISP Generic": {
+            "description": "Collect events from a MISP server.",
+            "module": "intelmq.bots.collectors.misp.collector",
+            "parameters": {
+                "feed": "misp_generic",
+                "provider": "",
+                "misp_key": "<insert MISP Authkey>",
+                "misp_tag_processed": "<insert MISP tag for processed events>",
+                "misp_tag_to_process": "<insert MISP tag for events to be processed>",
+                "misp_url": "<insert url of MISP server (with trailing '/')>",
+                "misp_verify": true,
+                "rate_limit": 3600
+            }
+        },
+        "Request Tracker": {
+            "description": "Request Tracker Collector fetches attachments from an RTIR instance and optionally decrypts them with gnupg.",
+            "module": "intelmq.bots.collectors.rt.collector_rt",
+            "parameters": {
+                "attachment_regex": "\\.csv\\.zip$",
+                "feed": "Request Tracker",
+                "provider": "",
+                "password": "password",
+                "rate_limit": 3600,
+                "search_not_older_than": null,
+                "search_owner": "nobody",
+                "search_queue": "Incident Reports",
+                "search_status": "new",
+                "search_subject_like": "Report",
+                "set_status": "open",
+                "take_ticket": true,
+                "unzip_attachment": true,
+                "uri": "http://localhost/rt/REST/1.0",
+                "url_regex": "https://dl.shadowserver.org/[a-zA-Z0-9?_-]*",
+                "user": "intelmq",
+                "http_username": null,
+                "http_password": null,
+                "ssl_client_certificate": null
+            }
+        },
+        "XMPP collector": {
+            "description": "This bot can connect to an XMPP Server and one room, in order to receive reports from it. TLS is used by default. rate_limit is ineffective here. Bot can either pass the body or the whole event.",
+            "module": "intelmq.bots.collectors.xmpp.collector",
+            "parameters": {
+                "ca_certs": "/etc/ssl/certs/ca-certificates.crt",
+                "feed": "XMPP",
+                "provider": "",
+                "pass_full_xml": false,
+                "rate_limit": 3600,
+                "strip_message": true,
+                "xmpp_user": "<xmpp username>",
+                "xmpp_server": "<xmpp server>",
+                "xmpp_password": "<xmpp password>",
+                "xmpp_room": null,
+                "xmpp_room_nick": null,
+                "xmpp_room_password": null,
+                "xmpp_userlist": null,
+                "xmpp_whitelist_mode": false,
+                "use_muc": false
+            }
+        },
+        "AlienVault OTX": {
+            "description": "AlienVault OTX Collector is the bot responsible to get the report through the API. Report could vary according to subscriptions.",
+            "module": "intelmq.bots.collectors.alienvault_otx.collector",
+            "parameters": {
+                "api_key": "<insert your api key>",
+                "feed": "AlienVault OTX",
+                "provider": "AlienVault",
+                "rate_limit": 3600
+            }
+        },
+        "Blueliv Crimeserver": {
+            "description": "Blueliv Crimeserver Collector is the bot responsible to get the report through the API.",
+            "module": "intelmq.bots.collectors.blueliv.collector_crimeserver",
+            "parameters": {
+                "api_key": "<insert your api key>",
+                "feed": "Blueliv Crimeserver",
+                "provider": "Blueliv",
+                "rate_limit": 3600
+            }
+        },
+        "N6stomp": {
+            "description": "N6 Collector - CERT.pl's N6 Collector - N6 feed via STOMP interface. Note that rate_limit does not apply for this bot as it is waiting for messages on a stream.",
+            "module": "intelmq.bots.collectors.n6.collector_stomp",
+            "parameters": {
+                "exchange": "<INSERT your exchange point as given by CERT.pl>",
+                "feed": "n6stomp",
+                "provider": "N6",
+                "port": 61614,
+                "server": "n6stream.cert.pl",
+                "ssl_ca_certificate": "<insert path to CA file for CERT.pl's n6>",
+                "ssl_client_certificate": "<insert path to client cert file for CERT.pl's n6>",
+                "ssl_client_certificate_key": "<insert path to client cert key file for CERT.pl's n6>"
+            }
+        }
+    },
+    "Parser": {
+        "Abuse.ch Domain": {
+            "description": "Abuse.ch Domain Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.abusech.parser_domain",
+            "parameters": {}
+        },
+        "Abuse.ch IP": {
+            "description": "Abuse.ch IP Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.abusech.parser_ip",
+            "parameters": {}
+        },
+        "Abuse.ch Ransomware": {
+            "description": "Abuse.ch Ransomware Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.abusech.parser_ransomware",
+            "parameters": {}
+        },
+        "AlienVault": {
+            "description": "AlienVault Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.alienvault.parser",
+            "parameters": {}
+        },
+        "AlienVault OTX": {
+            "description": "AlienVault Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.alienvault.parser_otx",
+            "parameters": {}
+        },
+        "Autoshun": {
+            "description": "Autoshun Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.autoshun.parser",
+            "parameters": {}
+        },
+        "Bambenek": {
+            "description": "Bambenek parser is the bot responsible to parse and and sanatize the information from the feeds available from Bambenek.",
+            "module": "intelmq.bots.parsers.bambenek.parser",
+            "parameters": {}
+        },
+        "Bitcash Blocklist Feed": {
+            "description": "Bitcash Blocklist parser is the bot responsible to parse and sanitize the information.",
+            "module": "intelmq.bots.parsers.bitcash.parser",
+            "parameters": {}
+        },
+        "AnubisNetworks Cyberfeed Stream": {
+            "description": "Parsers single JSON-events from AnubisNetworks Cyberfeed stream.",
+            "module": "intelmq.bots.parsers.anubisnetworks.parser",
+            "parameters": {}
+        },
+        "Blocklist.de": {
+            "description": "BlockList.DE Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.blocklistde.parser",
+            "parameters": {}
+        },
+        "Blueliv Crimeserver": {
+            "description": "Blueliv Crimeserver Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.blueliv.parser_crimeserver",
+            "parameters": {}
+        },
+        "CI Army": {
+            "description": "CI Army Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.ci_army.parser",
+            "parameters": {}
+        },
+        "CleanMX": {
+            "description": "CleanMX Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.cleanmx.parser",
+            "parameters": {}
+        },
+        "Cymru Full Bogons": {
+            "description": "Cymru Full Bogons Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.cymru_full_bogons.parser",
+            "parameters": {}
+        },
+        "DShield AS": {
+            "description": "DShield AS Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.dshield.parser_asn",
+            "parameters": {}
+        },
+        "DShield Block": {
+            "description": "DShield Block Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.dshield.parser_block",
+            "parameters": {}
+        },
+        "DShield Suspicious Domains": {
+            "description": "DShield Suspicious Domains Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.dshield.parser_domain",
+            "parameters": {}
+        },
+        "Danger Rulez": {
+            "description": "Danger Rulez Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.danger_rulez.parser",
+            "parameters": {}
+        },
+        "Dataplane Feeds": {
+            "description": "Dataplane Parser is the bot responsible to parse the Dataplane reports and sanitize the information.",
+            "module": "intelmq.bots.parsers.dataplane.parser",
+            "parameters": {}
+        },
+        "DynDNS ponmocup Domains": {
+            "description": "Dyn Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.dyn.parser",
+            "parameters": {}
+        },
+        "Fraunhofer DGA": {
+            "description": "Fraunhofer DGA Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.fraunhofer.parser_dga",
+            "parameters": {}
+        },
+        "Generic CSV": {
+            "description": "Generic CSV Parser is a generic bot configurable to parse different csv collected files. Ignoring lines starting with character #. URLs without protocal can be prefixed with a default value.",
+            "module": "intelmq.bots.parsers.generic.parser_csv",
+            "parameters": {
+                "columns": [
+                    "",
+                    "source.fqdn"
+                ],
+                "default_url_protocol": "http://",
+                "delimiter": ",",
+                "skip_header": true,
+                "type": "c&c"
+            }
+        },
+        "HpHosts": {
+            "description": "HpHosts Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.hphosts.parser",
+            "parameters": {
+                "error_log_message": false
+            }
+        },
+        "JSON": {
+            "description": "JSON Parser converts from a JSON-String into an Event",
+            "module": "intelmq.bots.parsers.json.parser",
+            "parameters": {
+                "splitlines": false
+            }
+        },
+        "MISP": {
+            "description": "MISP event parser.",
+            "module": "intelmq.bots.parsers.misp.parser",
+            "parameters": {}
+        },
+        "Malc0de": {
+            "description": "Malc0de Parser is the bot responsible to parse the IP Blacklist and either Windows Format or Bind Format reports and sanitize the information.",
+            "module": "intelmq.bots.parsers.malc0de.parser",
+            "parameters": {}
+        },
+        "Malware Domain List": {
+            "description": "Malware Domain List Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.malwaredomainlist.parser",
+            "parameters": {}
+        },
+        "Malware Domains": {
+            "description": "Malware Domains Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.malwaredomains.parser",
+            "parameters": {}
+        },
+        "MalwarePatrol Dans Guardian": {
+            "description": "MalwarePatrol Dans Guardian Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.malwarepatrol.parser_dansguardian",
+            "parameters": {}
+        },
+        "N6Stomp": {
+            "description": "N6 Collector - CERT.pl's N6 Parser - N6 feed via STOMP interface",
+            "module": "intelmq.bots.parsers.n6.parser_n6stomp",
+            "parameters": {}
+        },
+        "Netlab 360": {
+            "description": "Netlab 360 Parser is the bot responsible to parse the DGA and Magnitude reports and sanitize the information.",
+            "module": "intelmq.bots.parsers.netlab_360.parser",
+            "parameters": {}
+        },
+        "Nothink": {
+            "description": "Nothink Feed Parser is the bot responsible to parse the SNMP, SSH, Telnet, and DNS Attack reports and sanitize the information.",
+            "module": "intelmq.bots.parsers.nothink.parser",
+            "parameters": {}
+        },
+        "OpenBL": {
+            "description": "OpenBL Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.openbl.parser",
+            "parameters": {}
+        },
+        "OpenPhish": {
+            "description": "OpenPhish Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.openphish.parser",
+            "parameters": {}
+        },
+        "PhishTank": {
+            "description": "PhishTank Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.phishtank.parser",
+            "parameters": {}
+        },
+        "Proxyspy": {
+            "description": "Proxyspy Parser is the bot responsible to parse the Proxyspy report and sanitize the information.",
+            "module": "intelmq.bots.parsers.proxyspy.parser",
+            "parameters": {}
+        },
+        "ShadowServer": {
+            "description": "ShadowServer Parser is a bot capable of parsing all shadowserver feeds, depending on configuration files. Parameter 'feedname' is used as identifier to chose the correct mapping.",
+            "module": "intelmq.bots.parsers.shadowserver.parser",
+            "parameters": {
+                "feedname": "",
+                "overwrite": true
+            }
+        },
+        "Spamhaus CERT": {
+            "description": "Spamhaus CERT Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.spamhaus.parser_cert",
+            "parameters": {}
+        },
+        "Spamhaus Drop": {
+            "description": "Spamhaus Drop Parser is the bot responsible to parse the DROP, EDROP, DROPv6, and ASN-DROP reports and sanitize the information.",
+            "module": "intelmq.bots.parsers.spamhaus.parser_drop",
+            "parameters": {}
+        },
+        "Taichung": {
+            "description": "Taichung Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.taichung.parser",
+            "parameters": {
+                "error_log_message": false
+            }
+        },
+        "Turris Greylist": {
+            "description": "Turris Greylist Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.turris.parser",
+            "parameters": {}
+        },
+        "URLVir": {
+            "description": "URLVir Parser is the bot responsible to parse the Export Hosts and Export IP Addresses reports and sanitize the information.",
+            "module": "intelmq.bots.parsers.urlvir.parser",
+            "parameters": {}
+        },
+        "VXVault": {
+            "description": "VXVault Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.vxvault.parser",
+            "parameters": {}
+        }
+    },
+    "Expert": {
+        "ASN Lookup": {
+            "description": "ASN Lookup is the bot responsible to add ASN and BGP information from Route Views Project to the events.",
+            "module": "intelmq.bots.experts.asn_lookup.expert",
+            "parameters": {
+                "database": "/opt/intelmq/var/lib/bots/asn_lookup/ipasn.dat"
+            }
+        },
+        "Abusix": {
+            "description": "Abusix is the bot resposible to get the correspondent abuse contact from source IP and destination IP of the events",
+            "module": "intelmq.bots.experts.abusix.expert",
+            "parameters": {
+                "redis_cache_db": "5",
+                "redis_cache_host": "127.0.0.1",
+                "redis_cache_port": "6379",
+                "redis_cache_password": null,
+                "redis_cache_ttl": "86400"
+            }
+        },
+        "CERT.at Contact Database": {
+            "description": "Cert.at Contact Database is the bot responsible to get CERT. Set filter to true if you want to filter out events for cert.at. Set add_cc to true if you want to overwrite an existing CC value.",
+            "module": "intelmq.bots.experts.certat_contact.expert",
+            "parameters": {
+                "filter": false,
+                "http_verify_cert": true,
+                "overwrite_cc": false
+            }
+        },
+        "Cymru Whois": {
+            "description": "Cymry Whois (IP to ASN) is the bot responsible to add network information to the events (BGP, ASN, AS Name, Country, etc..).",
+            "module": "intelmq.bots.experts.cymru_whois.expert",
+            "parameters": {
+                "redis_cache_db": "5",
+                "redis_cache_host": "127.0.0.1",
+                "redis_cache_port": "6379",
+                "redis_cache_password": null,
+                "redis_cache_ttl": "86400"
+            }
+        },
+        "Deduplicator": {
+            "description": "Deduplicator is the bot responsible for detection and removal of duplicate messages. Messages get cached for <redis_cache_ttl> seconds. If found in the cache, it is assumed to be a duplicate.",
+            "module": "intelmq.bots.experts.deduplicator.expert",
+            "parameters": {
+                "filter_keys": "raw,time.observation",
+                "filter_type": "blacklist",
+                "redis_cache_db": "6",
+                "redis_cache_host": "127.0.0.1",
+                "redis_cache_port": "6379",
+                "redis_cache_password": null,
+                "redis_cache_ttl": "86400"
+            }
+        },
+        "Field Reducer": {
+            "description": "The field reducer bot is capable of removing fields from events.",
+            "module": "intelmq.bots.experts.field_reducer.expert",
+            "parameters": {
+                "type": "<whitelist/blacklist>",
+                "keys": "<list of field names>"
+            }
+        },
+        "Filter": {
+            "description": "Filters out events depending on bot parameters specification (filter_key, filter_value, filter_action)",
+            "module": "intelmq.bots.experts.filter.expert",
+            "parameters": {
+                "filter_action": "<keep/drop>",
+                "filter_key": "<source.geolocation.cc>",
+                "filter_regex": "",
+                "filter_value": "<PT>"
+            }
+        },
+        "Generic DB Lookup": {
+            "description": "Fetches data from a database.",
+            "module": "intelmq.bots.experts.generic_db_lookup.expert",
+            "parameters": {
+                "database": "intelmq",
+                "host": "localhost",
+                "match_fields": {
+                    "source.asn": "asn"
+                },
+                "overwrite": false,
+                "password": "<password>",
+                "port": "5432",
+                "replace_fields": {
+                    "contact": "source.abuse_contact",
+                    "note": "comment"
+                },
+                "sslmode": "require",
+                "table": "contacts",
+                "user": "intelmq"
+            }
+        },
+        "Gethostbyname": {
+            "description": "fqdn2ip is the bot responsible to parsing the ip from the fqdn.",
+            "module": "intelmq.bots.experts.gethostbyname.expert",
+            "parameters": {}
+        },
+        "MaxMind GeoIP": {
+            "description": "MaxMind GeoIP is the bot responsible for adding geolocation information to events (Country, City, Longitude, Latitude, etc..)",
+            "module": "intelmq.bots.experts.maxmind_geoip.expert",
+            "parameters": {
+                "database": "/opt/intelmq/var/lib/bots/maxmind_geoip/GeoLite2-City.mmdb"
+            }
+        },
+        "Modify": {
+            "description": "Modify bot can make nearly arbitrary changes to event's fields based on regex-rules on different values. See docs/Bots.md for some examples.",
+            "module": "intelmq.bots.experts.modify.expert",
+            "parameters": {
+                "configuration_path": "/opt/intelmq/var/lib/bots/modify/modify.conf"
+            }
+        },
+        "RFC 1918": {
+            "description": "RFC 1918 removes fields or discards events if an ip or domain is invalid (invalid, local, reserved, documentation). IP, FQDN and URL field names are supported.",
+            "module": "intelmq.bots.experts.rfc1918.expert",
+            "parameters": {
+                "fields": "destination.ip,source.ip,source.url",
+                "policy": "del,drop,drop"
+            }
+        },
+        "RIPENCC": {
+            "description": "RIPENCC is the bot resposible to get the correspondent abuse contact from source IP and destination IP of the events. RIPEstat documentation: https://stat.ripe.net/docs/data_api ",
+            "module": "intelmq.bots.experts.ripencc_abuse_contact.expert",
+            "parameters": {
+                "query_ripe_db_asn": true,
+                "query_ripe_db_ip": true,
+                "query_ripe_stat": true,
+                "redis_cache_db": "5",
+                "redis_cache_host": "127.0.0.1",
+                "redis_cache_port": "6379",
+                "redis_cache_password": null,
+                "redis_cache_ttl": "86400"
+            }
+        },
+        "Reverse DNS": {
+            "description": "Reverse DNS is the bot resposible to get the correspondent domain name source IP and destination IP of the events",
+            "module": "intelmq.bots.experts.reverse_dns.expert",
+            "parameters": {
+                "redis_cache_db": "7",
+                "redis_cache_host": "127.0.0.1",
+                "redis_cache_port": "6379",
+                "redis_cache_password": null,
+                "redis_cache_ttl": "86400",
+                "cache_ttl_invalid_response": "60"
+            }
+        },
+        "Taxonomy": {
+            "description": "Taxonomy is the bot responsible to apply the eCSIRT Taxonomy to all events.",
+            "module": "intelmq.bots.experts.taxonomy.expert",
+            "parameters": {}
+        },
+        "Tor Nodes": {
+            "description": "Tor Nodes is the bot responsible to check if an IP is an Tor Exit Node.",
+            "module": "intelmq.bots.experts.tor_nodes.expert",
+            "parameters": {
+                "database": "/opt/intelmq/var/lib/bots/tor_nodes/tor_nodes.dat",
+                "overwrite": false
+            }
+        },
+        "url2fqdn": {
+            "description": "url2fqdn is the bot responsible to parsing the fqdn from the url.",
+            "module": "intelmq.bots.experts.url2fqdn.expert",
+            "parameters": {
+                "overwrite": false
+            }
+        }
+    },
+    "Output": {
+        "AMQP Topic": {
+            "description": "AMQP Topic is the bot responsible to send events to a AMQP topic exchange.",
+            "module": "intelmq.bots.outputs.amqptopic.output",
+            "parameters": {
+                "connection_attempts": 3,
+                "connection_heartbeat": 3600,
+                "connection_host": "127.0.0.1",
+                "connection_port": 5672,
+                "connection_vhost": "<your virtual host>",
+                "content_type": "application/json",
+                "delivery_mode": 2,
+                "exchange_durable": true,
+                "exchange_name": "<your exchange name>",
+                "exchange_type": "topic",
+                "keep_raw_field": false,
+                "password": "<your amqp password>",
+                "require_confirmation": true,
+                "routing_key": "<your routing key>",
+                "username": "<your amqp username>"
+            }
+        },
+        "File": {
+            "description": "File is the bot responsible to send events to a file.",
+            "module": "intelmq.bots.outputs.file.output",
+            "parameters": {
+                "file": "/opt/intelmq/var/lib/bots/file-output/events.txt",
+                "hierarchical_output": false
+            }
+        },
+        "McAfee DXL": {
+            "description": "This output will generate a DXL message.",
+            "module": "intelmq.bots.outputs.dxl.output",
+            "parameters": {
+                "file": "/opt/intelmq/var/lib/bots/file-output/dxl_events.txt",
+                "hierarchical_output": false
+            }
+        },
+        "MongoDB": {
+            "description": "MongoDB is the bot responsible to send events to a MongoDB database.",
+            "module": "intelmq.bots.outputs.mongodb.output",
+            "parameters": {
+                "collection": "<collection>",
+                "database": "<database>",
+                "hierarchical_output": true,
+                "host": "<ip>",
+                "port": "<port>"
+            }
+        },
+        "PostgreSQL": {
+            "description": "PostgreSQL is the bot responsible to send events to a PostgreSQL Database. When activating autocommit, transactions are not used: http://initd.org/psycopg/docs/connection.html#connection.autocommit",
+            "module": "intelmq.bots.outputs.postgresql.output",
+            "parameters": {
+                "autocommit": true,
+                "database": "intelmq-events",
+                "host": "localhost",
+                "password": "<password>",
+                "port": "5432",
+                "sslmode": "require",
+                "table": "events",
+                "user": "intelmq"
+            }
+        },
+        "REST API": {
+            "description": "REST API is the bot responsible to send events to a REST API listener through POST.",
+            "module": "intelmq.bots.outputs.restapi.output",
+            "parameters": {
+                "auth_token": "<token>",
+                "auth_token_name": "<token name>",
+                "auth_type": "<http_basic_auth/http_header>",
+                "hierarchical_output": false,
+                "host": "<host>",
+                "use_json": true
+            }
+        },
+        "Redis": {
+            "description": "Redis is the bot responsible to send events to a Redis server.",
+            "module": "intelmq.bots.outputs.redis.output",
+            "parameters": {
+                "redis_db": 2,
+                "redis_password": "<password>",
+                "redis_queue": "external-redis-queue",
+                "redis_server_ip": "127.0.0.1",
+                "redis_server_port": 6379,
+                "redis_timeout": 50000
+            }
+        },
+        "TCP": {
+            "description": "TCP is the bot responsible to send events to a tcp port (Splunk, ElasticSearch, etc..).",
+            "module": "intelmq.bots.outputs.tcp.output",
+            "parameters": {
+                "ip": "<ip>",
+                "hierarchical_output": false,
+                "port": "<port>",
+                "separator": "\n"
+            }
+        },
+        "UDP": {
+            "description": "UDP is a simple UDP bot responsible to send events to a udp port (e.g.: syslog daemon). For more explanations about the parameters field, checkout out the README.md",
+            "module": "intelmq.bots.outputs.udp.output",
+            "parameters": {
+                "field_delimiter": "|",
+                "format": "<json/delimited> read README.md",
+                "header": "<header text>",
+                "keep_raw_field": false,
+                "udp_host": "localhost",
+                "udp_port": "<port>"
+            }
+        },
+        "XMPP": {
+            "description": "XMPP is the bot responsible to send events to an XMPP server.",
+            "module": "intelmq.bots.outputs.xmpp.output",
+            "parameters": {
+                "ca_certs": "/etc/ssl/certs/ca-certificates.crt",
+                "hierarchical_output": false,
+                "xmpp_user": "<xmpp username>",
+                "xmpp_server": "<xmpp server>",
+                "xmpp_password": "<xmpp password>",
+                "xmpp_to_user": "<destination username>",
+                "xmpp_to_server": "<destination server>",
+                "xmpp_room": null,
+                "xmpp_room_nick": null,
+                "xmpp_room_password": null,
+                "use_muc": false
+            }
+        }
+    }
+}

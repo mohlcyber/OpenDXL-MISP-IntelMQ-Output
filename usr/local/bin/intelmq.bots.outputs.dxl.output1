@@ -1,0 +1,10 @@
+#!/usr/bin/python3.4
+# EASY-INSTALL-ENTRY-SCRIPT: 'intelmq==1.0.0.dev6','console_scripts','intelmq.bots.outputs.dxl.output1'
+__requires__ = 'intelmq==1.0.0.dev6'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('intelmq==1.0.0.dev6', 'console_scripts', 'intelmq.bots.outputs.dxl.output1')()
+    )
