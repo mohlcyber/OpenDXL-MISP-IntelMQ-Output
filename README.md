@@ -74,7 +74,7 @@ We can start using a simple DXL script to publish collected MISP information on 
 
 > /usr/local/lib/python3.4/distpackages/intelmq/bots/outputs/dxl/example_test.py
 
-Finally we need to create a BOT to execute the OpenDXL python script.
+Finally we need to create a BOT to execute the OpenDXL python script above.
 
 > /usr/local/lib/python3.4/distpackages/intelmq/bots/outputs/dxl/output1.py
 
@@ -100,6 +100,8 @@ Please make sure to use the full path name in the dxlclient.config file.
 3. Add the McAfee DXL output and change the module name to the module you want to execute.
 
 4. Link the MISP collector with the parser and the output and safe the configuration.
+
+5. Start the BOTS under the management page
 
 IntelMQ collect the tagged event and publish this information via DXL. It is also possible to filter the data first before it gets send via DXL (e.g. filter out Hashes, IPs and Domains).
 
