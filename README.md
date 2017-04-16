@@ -101,7 +101,7 @@ Please make sure to use the full path name in the dxlclient.config file.
 
 4. Link the MISP collector with the parser and the output and safe the configuration.
 
-5. Start the BOTS under the management page
+5. Start the BOTS under the management page.
 
 IntelMQ collect the tagged event and publish this information via DXL. It is also possible to filter the data first before it gets send via DXL (e.g. filter out Hashes, IPs and Domains).
 
