@@ -10,6 +10,8 @@ to e.g.
 * update Forcepoint Firewalls ([Link]())
 * update Check Point Firewalls ([Link]())
 
+![34_misp_intelmq](https://cloud.githubusercontent.com/assets/25227268/25070153/fd670904-2296-11e7-82c1-7c30511ca72f.PNG)
+
 ## Component Description
 
 **MISP** threat sharing platform is a free and open source software helping information sharing of threat and cyber security indicators.
@@ -19,8 +21,6 @@ https://github.com/MISP/MISP
 security feeds. It's a community driven initiative called IHAP (Incident Handling Automation Project) which was conceptually designed by
 European CERTs/CSIRTs. Its main goal is to give to incident responders an easy way to collect & process threat intelligence.
 https://github.com/certtools/intelmq
-
-![34_misp_intelmq](https://cloud.githubusercontent.com/assets/25227268/25070153/fd670904-2296-11e7-82c1-7c30511ca72f.PNG)
 
 ## Prerequisites
 MISP platform installation ([Link](https://github.com/MISP/MISP)) (tested with MISP 2.4.70)
