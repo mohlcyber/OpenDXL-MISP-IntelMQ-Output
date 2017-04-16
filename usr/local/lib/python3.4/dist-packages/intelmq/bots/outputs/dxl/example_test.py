@@ -20,7 +20,7 @@ EVENT_TOPIC = "/intelmq/customer1/test"
 event_count_condition = Condition()
 
 # Create DXL configuration from file
-CONFIG_FILE = "/home/mcafee/dxlclient/certs/dxlclient1.config"
+CONFIG_FILE = "/path/to/config/file"
 config = DxlClientConfig.create_dxl_config_from_file(CONFIG_FILE)
 
 # Create the client
