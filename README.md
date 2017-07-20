@@ -23,16 +23,29 @@ European CERTs/CSIRTs. Its main goal is to give to incident responders an easy w
 https://github.com/certtools/intelmq
 
 ## Prerequisites
+Since IntelMQ is supported on Linux only, this solution only runs on Linux. The python dependencies have
+to be installed on a linux system.
+
 MISP platform installation ([Link](https://github.com/MISP/MISP)) (tested with MISP 2.4.70)
 
-PyMISP library installation ([Link](https://github.com/CIRCL/PyMISP))
+PyMISP library installation ([Link](https://github.com/CIRCL/PyMISP))or install dependencies
+using the requirements.txt file as mentioned below.
 
 IntelMQ installation ([Link](https://github.com/certtools/intelmq))
 
 IntelMQ Manager installation ([Link](https://github.com/certtools/intelmq-manager))
 
+Download the [Latest Release](https://github.com/mohl1/OpenDXL-MISP-IntelMQ-Output/releases)
+   * Extract the release .zip file
+   
 OpenDXL Python installation
 1. Python SDK Installation ([Link](https://opendxl.github.io/opendxl-client-python/pydoc/installation.html))
+    Install the required dependencies with the requirements.txt file:
+    ```sh
+    $ pip install -r requirements.txt
+    ```
+    This will install the dxlclient, pymisp, and intelmq modules.
+    The solution has been tested with python intelmq library version 1.0.0.dev6.  
 2. Certificate Files Creation ([Link](https://opendxl.github.io/opendxl-client-python/pydoc/certcreation.html))
 3. ePO Certificate Authority (CA) Import ([Link](https://opendxl.github.io/opendxl-client-python/pydoc/epocaimport.html))
 4. ePO Broker Certificates Export ([Link](https://opendxl.github.io/opendxl-client-python/pydoc/epobrokercertsexport.html))
@@ -44,6 +57,12 @@ Parsers, Experts and Outputs.
 For this particular use case we will collect data from the Malware Intelligence Sharing Platform (MISP) based on specific tags. 
 We will parse the information and use OpenDXL as an output to share information across multiple DXL fabrics and platforms.
 OpenDXL as an output is not natively configured. 
+
+### example_test.py
+
+Change the CONFIG_FILE path in the example_test.py file
+
+`CONFIG_FILE = "/path/to/config/file"`
 
 ### IntelMQ
 To add OpenDXL we first need to create a new BOT in /opt/intelmq/etc/BOTS.
@@ -80,7 +99,7 @@ Finally we need to create a BOT to execute the OpenDXL python script above.
 
 > /usr/local/lib/python3.4/distpackages/intelmq/bots/outputs/dxl/output1.py
 
-The output1.py script includes a specfic part to execute the OpenDXL script.
+The output1.py script includes a specific part to execute the OpenDXL script.
 
 `subprocess.call(['/usr/bin/python','/usr/local/lib/python3.4/dist-packages/intelmq/bots/outputs/dxl/example_test.py', event_data])`
 

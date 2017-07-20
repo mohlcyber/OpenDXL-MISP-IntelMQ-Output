@@ -1,0 +1,3 @@
+dxlclient
+intelmq==1.0.0.dev6
+pymisp
