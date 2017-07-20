@@ -28,7 +28,7 @@ to be installed on a linux system.
 
 MISP platform installation ([Link](https://github.com/MISP/MISP)) (tested with MISP 2.4.70)
 
-PyMISP library installation ([Link](https://github.com/CIRCL/PyMISP))or install dependencies
+PyMISP library installation ([Link](https://github.com/CIRCL/PyMISP)) or install dependencies
 using the requirements.txt file as mentioned below.
 
 IntelMQ installation ([Link](https://github.com/certtools/intelmq))
